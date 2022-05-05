@@ -2,9 +2,28 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-WebAppPrueba-5A3DE299-E7FC-4DAF-851D-48F6809F545B</UserSecretsId>
+ 
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20220505132550_firstmigrations.cs" />
+    <Compile Remove="Migrations\20220505132550_firstmigrations.Designer.cs" />
+    <Compile Remove="Migrations\20220505134358_firstmigrations.cs" />
+    <Compile Remove="Migrations\20220505134358_firstmigrations.Designer.cs" />
+    <Compile Remove="Migrations\20220505134817_firstmigrations.cs" />
+    <Compile Remove="Migrations\20220505134817_firstmigrations.Designer.cs" />
+    <Compile Remove="Migrations\20220505151436_firstmigrations.cs" />
+    <Compile Remove="Migrations\20220505151436_firstmigrations.Designer.cs" />
+    <Compile Remove="Migrations\20220505203539_firstmigrations.cs" />
+    <Compile Remove="Migrations\20220505203539_firstmigrations.Designer.cs" />
+    <Compile Remove="Migrations\20220505203707_firstmigrations.cs" />
+    <Compile Remove="Migrations\20220505203707_firstmigrations.Designer.cs" />
+    <Compile Remove="Migrations\20220505203814_firstmigrations.cs" />
+    <Compile Remove="Migrations\20220505203814_firstmigrations.Designer.cs" />
+    <Compile Remove="Migrations\20220505203942_firstmigrations.cs" />
+    <Compile Remove="Migrations\20220505203942_firstmigrations.Designer.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.22" />

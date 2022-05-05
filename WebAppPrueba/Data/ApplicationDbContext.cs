@@ -19,7 +19,8 @@ namespace WebAppPrueba.Data
 
             //Seeding a  'Administrator' role to AspNetRoles table
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", Name = "admin", NormalizedName = "ADMIN".ToUpper() });
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "8c6e173g-6b0s-126f-86af-483d56fd7210", Name = "client", NormalizedName = "CLIENT".ToUpper() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "8c6e173g-6b0s-123f-86af-483d46fd7211", Name = "client", NormalizedName = "CLIENT".ToUpper(), });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "6c6e173u-5b0s-026f-86af-583d56fd7211", Name = "user", NormalizedName = "USER".ToUpper(), });
 
 
             //a hasher to hash the password before seeding the user to the db
@@ -33,14 +34,24 @@ namespace WebAppPrueba.Data
                     Id = "8e445865-a24d-4543-a6c6-9443d048cdb9", // primary key
                 UserName = "admin",
                     NormalizedUserName = "admin",
-                    PasswordHash = hasher.HashPassword(null, "client")
+                    PasswordHash = hasher.HashPassword(null, "admin"),
+                    EmailConfirmed = true
                 },
                 new ApplicationUser
                 {
                     Id = "9a445865-a24d-4543-a6c6-6443d048cdv1", // primary key
                     UserName = "client",
                     NormalizedUserName = "client",
-                    PasswordHash = hasher.HashPassword(null, "client")
+                    PasswordHash = hasher.HashPassword(null, "client"),
+                    EmailConfirmed  = true
+                },
+                new ApplicationUser
+                {
+                    Id = "6a445865-a24d-4123-a6c3-8043d048cdv1", // primary key
+                    UserName = "user",
+                    NormalizedUserName = "user",
+                    PasswordHash = hasher.HashPassword(null, "user"),
+                    EmailConfirmed = true
                 }
             );
 
@@ -58,8 +69,14 @@ namespace WebAppPrueba.Data
                 //client
                 new IdentityUserRole<string>
                 {
-                    RoleId = "8c6e173g-6b0s-126f-86af-483d56fd7210",
+                    RoleId = "8c6e173g-6b0s-123f-86af-483d46fd7211",
                     UserId = "9a445865-a24d-4543-a6c6-6443d048cdv1"
+                },
+
+                new IdentityUserRole<string>
+                {
+                    RoleId = "6c6e173u-5b0s-026f-86af-583d56fd7211",
+                    UserId = "6a445865-a24d-4123-a6c3-8043d048cdv1"
                 }
 
 

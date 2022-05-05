@@ -1,10 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
 
-namespace WebAppPrueba.Data.Migrations
+namespace WebAppPrueba.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class firstmigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +39,9 @@ namespace WebAppPrueba.Data.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,7 +53,7 @@ namespace WebAppPrueba.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -73,7 +74,7 @@ namespace WebAppPrueba.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -152,6 +153,41 @@ namespace WebAppPrueba.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "2c5e174e-3b0e-446f-86af-483d56fd7210", "fd45fb71-e65a-427e-9849-5307b3d2172a", "admin", "ADMIN" },
+                    { "8c6e173g-6b0s-123f-86af-483d46fd7211", "cef05f67-d485-42b2-9116-3a712c7bf468", "client", "CLIENT" },
+                    { "6c6e173u-5b0s-026f-86af-583d56fd7211", "66e25db5-6f11-433f-ae32-d7c41fc0bc0f", "user", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "Password" },
+                values: new object[,]
+                {
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "ed0f7ea5-51ec-47fe-ac24-755a006e3090", "ApplicationUser", null, true, false, null, null, "admin", "AQAAAAEAACcQAAAAEP5LENWBAgbyrb2JQhLQnPgiJ1kNsisrQ4qI8srtKtjP6ySU1PyFYMe/oWMG9l+xkw==", null, false, "10ac23dd-89e1-4099-ae0a-d29a9e3662e8", false, "admin", null },
+                    { "9a445865-a24d-4543-a6c6-6443d048cdv1", 0, "0e1c04bc-d116-4aa1-90b7-c9b9907c7b0d", "ApplicationUser", null, true, false, null, null, "client", "AQAAAAEAACcQAAAAELxQqGtLwWQO7H12UmszRWRiFAPL3FQod/T4FnN0hNswi3bWZSdD7QxhZL9bqRKYkQ==", null, false, "4a2a6068-42f9-43d7-9eda-982bfd2afc62", false, "client", null },
+                    { "6a445865-a24d-4123-a6c3-8043d048cdv1", 0, "abbbde45-b959-4dca-bbeb-3eedf54897a3", "ApplicationUser", null, true, false, null, null, "user", "AQAAAAEAACcQAAAAEHakK254NMRxz6EY5iXJXfGq++1kLxY8Ot7Qhhk1KohptEnwGSp1ylERrNw54c+L/w==", null, false, "abe7f874-927b-4ecf-9078-e0a9843ebdb3", false, "user", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { "8e445865-a24d-4543-a6c6-9443d048cdb9", "2c5e174e-3b0e-446f-86af-483d56fd7210" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { "9a445865-a24d-4543-a6c6-6443d048cdv1", "8c6e173g-6b0s-123f-86af-483d46fd7211" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { "6a445865-a24d-4123-a6c3-8043d048cdv1", "6c6e173u-5b0s-026f-86af-583d56fd7211" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
